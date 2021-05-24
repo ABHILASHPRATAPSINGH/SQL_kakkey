@@ -27,5 +27,5 @@ add constraint uq_Course_CourseName unique(CourseName),
 	constraint ck_Course_CourseName check(len(CourseName)>=3)
 
 --change Datatype and nullability of column
-alter table Course
+alter table K_Stock_Market
 alter column Credit nvarchar(50) not null
