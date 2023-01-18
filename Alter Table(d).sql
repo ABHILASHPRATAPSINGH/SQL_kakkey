@@ -1,3 +1,12 @@
+/*
+1-Adding a new column to existing table
+2-Deleting existing columns from table
+3-rename column of table
+4-droping constraints from table
+5-adding new constriant to column
+6-change Datatype and nullability of column
+*/
+
 
 --Adding a new column to existing table
 alter table Course
@@ -11,11 +20,9 @@ drop column MinimumCourseCredit,
 			MaximumCourseCredit
 
 --rename column of table
-sp_rename 'Course.MinCourseCredit','MinimumCourseCredit','COLUMN'
+exec sp_rename 'Course.MinCourseCredit','MinimumCourseCredit','COLUMN'
 
-
-
-
+  
 --droping constraints from table
 alter table Course
 drop constraint df_Course_MinimumCourseCredit,df_Course_MaximumCourseCredit

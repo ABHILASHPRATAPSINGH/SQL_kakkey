@@ -1,7 +1,15 @@
 
+/*Topics:-
+1-Create table
+	General method
+	By select * into statement
+	By joining two existing Table 
+2-Delete Table
+3-Delete all values from table, without deleting table
+3-Insert Values in Table
+4-Rename table
 
-
---********************************************************************************************************************************
+*/
 
 
 --Creating table In DataBase & adding constraint at time of creation table
@@ -14,7 +22,6 @@ Create table tbl_StudentInfo
 
 (
 [Roll Number] int not null,															------agr null/not null nahi likhe, default ye null leta hai
-
 --[Roll Number] int constraint nn_studentinfo_RollNumber not null					------ye line=above, pr yeh col<Roll Number> m turant constraint dalti hai
 
 [Name] nvarchar(50) not null primary key,
@@ -40,54 +47,37 @@ City nvarchar(20) not null unique,
 --constraint fk_Student_CourseRegistered_Course_CourseId foreign key(CourseRegistered) references Course(CourseId)
 )
 
-use ABH_work
+
 create table tbl_AadharNo
 (
 AadharId int not null primary key,
 AadharNo int not null 
 )
-select * from tbl_AadharNo
 
+
+--create new table by select * into statement
+select * into newTbl from all$
+
+--create table by as statement
+create table nnn as select * from tblStudent
+--Note:- it will not work in sql server
+
+
+--*************************Deleting Table******************
 drop table tbl_AadharNo
+
+--************************Deleting all content from table or remove all content
+delete from tbl_Aadharno
+
+--************************insert Values in table**********
 insert into tbl_AadharNo values (1,112233)
 insert into tbl_AadharNo values (2,224455)
 insert into tbl_AadharNo values (3,334466)
-select * from tbl_aadharNo
-select * from formpassword
 
 
+--*************************Rename Table**********************
 
---*******************************************************************************************
---*******Adding columns,*******
+exec sp_rename 'tblPersons','tblCustomers'
 
+--Note;- In sql server renameming through Alter Statement and Rename Statement not working
 
---Adding a new column to existing table
-alter table Course
-add MinimumCourseCredit integer not null constraint df_Course_MinimumCourseCredit default 4,
-	MaximumCourseCredit integer not null constraint df_Course_MaximumCourseCredit default 8
-	Course nvarchar(10) constraint fk_DuStudent_Course foreign key References Course(CourseId)
-
---Deleting existing columns from table
-alter table Course
-drop column MinimumCourseCredit,
-			MaximumCourseCredit
-
---rename column of table
-sp_rename 'Course.MinCourseCredit','MinimumCourseCredit','COLUMN'
-
-
-
-
---droping constraints from table
-alter table Course
-drop constraint df_Course_MinimumCourseCredit,df_Course_MaximumCourseCredit
-
---adding new constriant to column
-alter table Course	
-add constraint uq_Course_CourseName unique(CourseName),
-	constraint df_Course_CourseName default 'not defined' for CourseName,
-	constraint ck_Course_CourseName check(len(CourseName)>=3)
-
---change Datatype and nullability of column
-alter table Course
-alter column Credit nvarchar(50) not null
